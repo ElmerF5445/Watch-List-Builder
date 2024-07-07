@@ -1,0 +1,22 @@
+.WLB_Editor_Controls_Series{
+    grid-template-columns: 1fr 40px 40px 40px;
+    grid-gap: 10px;
+}
+
+.WLB_Editor_Controls_Episode{
+    grid-template-columns: 35px 1fr 40px 40px;
+    grid-gap: 10px;
+}
+
+.WLB_Editor_Controls_Episode:active{
+    transform: unset;
+}
+
+.WLB_Editor_Controls_Icon{
+    width: 20px;
+    padding: 10px;
+    border-radius: 5px;
+}
+.WLB_Editor_Controls_Icon:hover{
+    background-color: var(--BG-Color-Button-Secondary-Focus);
+}

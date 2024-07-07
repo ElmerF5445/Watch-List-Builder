@@ -356,7 +356,7 @@
                 </div>	
             </div>
             <div class="Subwindow_Bottom">
-                <div class="Subwindow_Bottom_Button_SecondaryAction">
+                <div class="Subwindow_Bottom_Button_SecondaryAction" onclick="Subwindows_Close('WLB_AddItem')">
                     Cancel 
                 </div>
                 <div class="Subwindow_Bottom_Button_PrimaryAction" onclick="WLB_AddItem()">
@@ -463,7 +463,7 @@
 			</div>
 			<div class="Modal_Content">
 				<p class="General_Paragraph">
-                    This will erase all data related to this program, including your watchlist. This is not reversible once done.
+                    This will erase all data related to this program, including your watchlist. This action cannot be undone.
 				</p>
 			</div>
 			<div class="Modal_Content_Bottom">
@@ -472,6 +472,92 @@
 				</div>
                 <div class="Subwindow_Bottom_Button_PrimaryAction" onclick="WLB_ClearData()">
 					Clear data
+				</div>
+			</div>
+		</div>
+
+        <div class="Modal" id="WLB_EditItem_Delete_Series">
+			<div class="Modal_TitleBar">
+				<h2 class="Modal_TitleBar_Title">
+					Delete series?
+				</h2>
+			</div>
+			<div class="Modal_Content">
+				<p class="General_Paragraph">
+                    Are you sure you want to delete this series? This action cannot be undone.
+				</p>
+			</div>
+			<div class="Modal_Content_Bottom">
+				<div class="Subwindow_Bottom_Button_SecondaryAction" onclick="Subwindows_Close('WLB_EditItem_Delete_Series')">
+					Cancel
+				</div>
+                <div class="Subwindow_Bottom_Button_PrimaryAction" onclick="">
+					Delete series
+				</div>
+			</div>
+		</div>
+
+        <div class="Modal" id="WLB_EditItem_Delete_Episode">
+			<div class="Modal_TitleBar">
+				<h2 class="Modal_TitleBar_Title">
+					Delete episode?
+				</h2>
+			</div>
+			<div class="Modal_Content">
+				<p class="General_Paragraph">
+                    Are you sure you want to delete this episode? This action cannot be undone.
+				</p>
+			</div>
+			<div class="Modal_Content_Bottom">
+				<div class="Subwindow_Bottom_Button_SecondaryAction" onclick="Subwindows_Close('WLB_EditItem_Delete_Episode')">
+					Cancel
+				</div>
+                <div class="Subwindow_Bottom_Button_PrimaryAction" onclick="">
+					Delete episode
+				</div>
+			</div>
+		</div>
+
+        <div class="Modal" id="WLB_EditItem_Rename_Series">
+			<div class="Modal_TitleBar">
+				<h2 class="Modal_TitleBar_Title">
+					Rename series
+				</h2>
+			</div>
+			<div class="Modal_Content">
+				<p class="General_Paragraph">
+                    Change the series name below:
+				</p>
+                <input type="text" class="Input_Text" id="WLB_EditItem_Rename_Series_Input" placeholder="New name for the series here"/>
+			</div>
+			<div class="Modal_Content_Bottom">
+				<div class="Subwindow_Bottom_Button_SecondaryAction" onclick="Subwindows_Close('WLB_EditItem_Rename_Series')">
+					Cancel
+				</div>
+                <div class="Subwindow_Bottom_Button_PrimaryAction" onclick="">
+					Save changes
+				</div>
+			</div>
+		</div>
+
+        <div class="Modal" id="WLB_EditItem_Rename_Episode">
+			<div class="Modal_TitleBar">
+				<h2 class="Modal_TitleBar_Title">
+					Rename episode
+				</h2>
+			</div>
+			<div class="Modal_Content">
+				<p class="General_Paragraph">
+                    Change the episode name below:
+				</p>
+                <input type="text" class="Input_Text" id="WLB_EditItem_Rename_Episode_Input" placeholder="New name for the series here"/>
+			</div>
+			<div class="Modal_Content_Bottom">
+				<div class="Subwindow_Bottom_Button_SecondaryAction" onclick="Subwindows_Close('WLB_EditItem_Rename_Episode')">
+					Cancel
+				</div>
+                <div class="Subwindow_Bottom_Button_PrimaryAction" onclick="">
+					Save changes
 				</div>
 			</div>
 		</div>
@@ -704,16 +790,6 @@
 				Edit
 			</p>
 		</div>
-		<div class="Tabs_Vertical_Container_Selector_Item" id="TabIDHere3" onclick="Tabs_ChangeTab(this.id, 'Vertical')" Tabs_Tab_Title="New UI Elements" Tabs_Tab_Target_Container="Content" Tabs_Tab_Target_Tab="tab_TabIDHere3" Tabs_UseRibbon="hide" Tabs_Tab_Target_Ribbon="Ribbon_TabIDHere2" Tabs_UseHeaderTitle="true" Tabs_UseFullContainer="true">
-			<div class="Tabs_Vertical_Container_Selector_Item_Icon">
-				<h2 class="Tabs_Vertical_Container_Selector_Item_Icon_Icon">
-					3
-				</h2>
-			</div>
-			<p class="Tabs_Vertical_Container_Selector_Item_Text">
-				Tab 3
-			</p>
-		</div>
     </div>
     <div class="MainContent_Container" id="MainContent_Container">
         <div class="MainContent_Container_Pusher" id="MainContent_Container_Pusher"></div>
@@ -775,14 +851,24 @@
                     
                 </div>
                 <div class="Tab_Container_Content_Item Content_Item" id="tab_WatchList_Editor">
-                    <h1 class="General_Title">
-                        Tab 2
-                    </h1>
-                </div>
-                <div class="Tab_Container_Content_Item Content_Item" id="tab_TabIDHere3">
-                    <h1 class="General_Title">
-                        Tab 3
-                    </h1>
+                     <div class="Accordion" id="WLB_Series_1">
+                        <div class="Accordion_Title WLB_Editor_Controls_Series">
+                            <h2 class="Accordion_Title_Text">
+                                [Series name]
+                            </h2>
+                            <img class='Accordion_Title_Arrow WLB_Editor_Controls_Icon' src='Assets/Icons/icon_downArrow.png' draggable='false' loading='lazy' onclick="Accordion_Toggle(this.parentNode.parentNode.id)"/>
+                            <img class='WLB_Editor_Controls_Icon' src='Assets/Icons/iconNew_edit.png' draggable='false' loading='lazy' onclick="Subwindows_Open('WLB_EditItem_Rename_Series')"/>
+                            <img class='WLB_Editor_Controls_Icon' src='Assets/Icons/iconNew_delete.png' draggable='false' loading='lazy' onclick="Subwindows_Open('WLB_EditItem_Delete_Series')"/>
+                        </div>
+                        <div class="Accordion_Content" State="Expanded">
+                            <div class="Toggle WLB_Editor_Controls_Episode" id="WLB_Series_1_Episode_1" State="Inactive">
+                                <div class="Toggle_Indicator"></div>
+                                [Series name] | Episode 1
+                                <img class='WLB_Editor_Controls_Icon' src='Assets/Icons/iconNew_edit.png' draggable='false' loading='lazy' onclick="Subwindows_Open('WLB_EditItem_Rename_Episode')"/>
+                                <img class='WLB_Editor_Controls_Icon' src='Assets/Icons/iconNew_delete.png' draggable='false' loading='lazy' onclick="Subwindows_Open('WLB_EditItem_Delete_Episode')"/>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </main>
