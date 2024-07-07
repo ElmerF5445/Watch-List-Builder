@@ -91,27 +91,27 @@
                 "Menu_Contents": {
                     "PageNavigation": [
                         {
-                            "Title": "App Template",
-                            "Link": "App_Template.html",
+                            "Title": "Home",
+                            "Link": "Pages/WLB_Main.html",
                             "Icon": "Assets/Icons/icon_home.png"
                         },
                         {
-                            "Title": "Settings",
-                            "Link": "App_UniversalSettings.html",
-                            "Icon": "Assets/Icons/icon_settings.png"
+                            "Title": "Github Repository",
+                            "Link": "https://github.com/ElmerF5445/Watch-List-Builder",
+                            "Icon": "Assets/Icons/ContentByElmerF.png"
                         }
                     ],
                     "Actions": [
                         {
-                            "Title": "Action 1",
+                            "Title": "Import watchlist",
                             "Link": null,
-                            "Icon": "Assets/Icons/icon_home.png",
+                            "Icon": "Assets/Icons/iconNew_download.png",
                             "OnclickFunction": null
                         },
                         {
-                            "Title": "Action 2",
+                            "Title": "Export watchlist",
                             "Link": null,
-                            "Icon": "Assets/Icons/icon_home.png",
+                            "Icon": "Assets/Icons/icon_output.png",
                             "OnclickFunction": null
                         }
                     ]
