@@ -86,7 +86,7 @@
                 }
             },
             "Header": {
-                "Title": "Home",
+                "Title": "Watch List Builder",
                 "Icon": "Assets/Icons/favicon.png",
                 "Menu_Contents": {
                     "PageNavigation": [
