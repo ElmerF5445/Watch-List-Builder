@@ -167,8 +167,8 @@ function WLB_Add_Item_Episode(){
         var WLB_AddItem_Episode_StartFromAndTo = document.getElementById("WLB_AddItem_Episode_StartFromAndTo").value;
         var WLB_Add_Item_Episode = WLB_Add_Item_Episode_StartFrom - 1;
         console.log(WLB_Add_Item_Episode_StartFrom + " -- " + WLB_AddItem_Episode_StartFromAndTo);
-        console.log(WLB_AddItem_Episode_StartFromAndTo < WLB_Add_Item_Episode_StartFrom);
-        if (WLB_AddItem_Episode_StartFromAndTo < WLB_Add_Item_Episode_StartFrom){
+        console.log(WLB_Add_Item_Episode_StartFrom < WLB_AddItem_Episode_StartFromAndTo);
+        if (WLB_Add_Item_Episode_StartFrom < WLB_AddItem_Episode_StartFromAndTo){
             Subwindows_Open('WLB_AddItem_Error_EpisodeWrongOrder');
         } else {
             for (a = 0; a < WLB_AddItem_Episode_Count; a++){
