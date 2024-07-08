@@ -53,7 +53,14 @@ function WLB_ClearData(){
 }
 // Loads the watchlist from WLB_WatchList_Data object. Make sure to load the actual data first.
 function WLB_Load_WatchList(){
-    document.getElementById("tab_WatchList_Main").innerHTML = "";
+    if (WLB_WatchList_Data.length == 0){
+        document.getElementById('WLB_LoadData_Empty_1').style.display = 'block';
+        document.getElementById('WLB_LoadData_Empty_2').style.display = 'block';
+    } else {
+        document.getElementById('WLB_LoadData_Empty_1').style.display = 'none';
+        document.getElementById('WLB_LoadData_Empty_2').style.display = 'none';
+    }
+    document.getElementById("WatchList_Main").innerHTML = "";
     // Create series elements
     for (a = 0; a < WLB_WatchList_Data.length; a++){
         var WLB_WatchList_Series_Element_Name = WLB_WatchList_Data[a].Series_Name;
@@ -74,7 +81,7 @@ function WLB_Load_WatchList(){
 
         var WLB_WatchList_Series_Element = document.createElement('span');
         WLB_WatchList_Series_Element.innerHTML = WLB_WatchList_Series_Element_InnerHTML;
-        document.getElementById("tab_WatchList_Main").appendChild(WLB_WatchList_Series_Element);
+        document.getElementById("WatchList_Main").appendChild(WLB_WatchList_Series_Element);
 
         // Create episode elements inside the series container
         for (b = 0; b < WLB_WatchList_Data[a].Series_Episodes.length; b++){
@@ -120,7 +127,63 @@ function WLB_Load_WatchList(){
         document.getElementById("WLB_AddItem_Episode_FromSeries_List").appendChild(WLB_WatchList_Series_List_Element);
         WLB_AddItem_Episode_Series = -1;
     }
-    
+    WLB_Load_WatchList_Editor();
+}
+
+// Loads the watchlist from WLB_WatchList_Data object. Make sure to load the actual data first.
+function WLB_Load_WatchList_Editor(){
+    document.getElementById("WatchList_Editor").innerHTML = "";
+    // Create series elements
+    for (a = 0; a < WLB_WatchList_Data.length; a++){
+        var WLB_WatchList_Series_Element_Name = WLB_WatchList_Data[a].Series_Name;
+        var WLB_WatchList_Series_Element_State = WLB_WatchList_Data[a].Series_State;
+        var WLB_WatchList_Series_Element_InnerHTML = `
+            <div class="Accordion" id="WLB_Series_${a}_Editor" State="${WLB_WatchList_Series_Element_State}" Series="${a}">
+                <div class="Accordion_Title WLB_Editor_Controls_Series">
+                    <h2 class="Accordion_Title_Text">
+                        ${WLB_WatchList_Series_Element_Name}
+                    </h2>
+                    <img class='Accordion_Title_Arrow WLB_Editor_Controls_Icon' src='Assets/Icons/icon_upArrow.png' draggable='false' loading='lazy' onclick="Accordion_Toggle(this.parentNode.parentNode.id)"/>
+
+                    <img class='WLB_Editor_Controls_Icon' src='Assets/Icons/iconNew_edit.png' draggable='false' loading='lazy' onclick="Subwindows_Open('WLB_EditItem_Rename_Series'); WLB_EditItem_Load_Data('Series', 'Rename', ${a}, null)"/>
+
+                    <img class='WLB_Editor_Controls_Icon' src='Assets/Icons/iconNew_delete.png' draggable='false' loading='lazy' onclick="Subwindows_Open('WLB_EditItem_Delete_Series'); WLB_EditItem_Load_Data('Series', 'Delete', ${a}, null)"/>
+                </div>
+                <div class="Accordion_Content" State="Expanded" id="WLB_Series_${a}_Episodes_Editor">
+                    <!-- Episodes are inserted here -->
+                </div>
+            </div>
+        `;
+
+        var WLB_WatchList_Series_Element = document.createElement('span');
+        WLB_WatchList_Series_Element.innerHTML = WLB_WatchList_Series_Element_InnerHTML;
+        document.getElementById("WatchList_Editor").appendChild(WLB_WatchList_Series_Element);
+
+        // Create episode elements inside the series container
+        for (b = 0; b < WLB_WatchList_Data[a].Series_Episodes.length; b++){
+            var WLB_WatchList_Episode_Element_EpisodeNumber = WLB_WatchList_Data[a].Series_Episodes[b].Episode_Number;
+            var WLB_WatchList_Episode_Element_EpisodeDone = WLB_WatchList_Data[a].Series_Episodes[b].Episode_Done;
+            var WLB_WatchList_Episode_Element_EpisodeDone_Status;
+            if (WLB_WatchList_Episode_Element_EpisodeDone == true){
+                WLB_WatchList_Episode_Element_EpisodeDone_Status = "Active";
+            } else {
+                WLB_WatchList_Episode_Element_EpisodeDone_Status = "Inactive";
+            }
+
+            var WLB_WatchList_Episode_Element_InnerHTML = `
+                <div class="Toggle WLB_Editor_Controls_Episode" id="WLB_Series_${a}_Episode_${b}_Editor" State="${WLB_WatchList_Episode_Element_EpisodeDone_Status}" Series="${a}" Episode="${b}">
+                    <div class="Toggle_Indicator"></div>
+                    ${WLB_WatchList_Series_Element_Name} | Episode ${WLB_WatchList_Episode_Element_EpisodeNumber}
+                   
+                    <img class='WLB_Editor_Controls_Icon' src='Assets/Icons/iconNew_delete.png' draggable='false' loading='lazy' onclick="Subwindows_Open('WLB_EditItem_Delete_Episode'); WLB_EditItem_Load_Data('Episode', 'Delete', ${a}, ${b})"/>
+                </div>
+            `;
+
+            var WLB_WatchList_Episode_Element = document.createElement('span');
+            WLB_WatchList_Episode_Element.innerHTML = WLB_WatchList_Episode_Element_InnerHTML;
+            document.getElementById(`WLB_Series_${a}_Episodes_Editor`).appendChild(WLB_WatchList_Episode_Element);
+        }
+    }
 }
 
 var WLB_AddItem_Episode_Count = 0;
@@ -166,9 +229,9 @@ function WLB_Add_Item_Episode(){
         var WLB_Add_Item_Episode_StartFrom = document.getElementById("WLB_AddItem_Episode_StartFrom").value;
         var WLB_AddItem_Episode_StartFromAndTo = document.getElementById("WLB_AddItem_Episode_StartFromAndTo").value;
         var WLB_Add_Item_Episode = WLB_Add_Item_Episode_StartFrom - 1;
-        console.log(WLB_Add_Item_Episode_StartFrom + " -- " + WLB_AddItem_Episode_StartFromAndTo);
-        console.log(WLB_Add_Item_Episode_StartFrom > WLB_AddItem_Episode_StartFromAndTo);
-        if (WLB_Add_Item_Episode_StartFrom > WLB_AddItem_Episode_StartFromAndTo){
+        console.log(WLB_Add_Item_Episode_StartFrom + " > " + WLB_AddItem_Episode_StartFromAndTo);
+        console.log(Number(WLB_Add_Item_Episode_StartFrom) > Number(WLB_AddItem_Episode_StartFromAndTo));
+        if (Number(WLB_Add_Item_Episode_StartFrom) > Number(WLB_AddItem_Episode_StartFromAndTo)){
             Subwindows_Open('WLB_AddItem_Error_EpisodeWrongOrder');
         } else {
             for (a = 0; a < WLB_AddItem_Episode_Count; a++){
@@ -205,4 +268,47 @@ function WLB_Update_Episode_State(ID){
     var WLB_Update_Episode_Episode = Element_Attribute_Get(ID, "Episode");
     WLB_WatchList_Data[WLB_Update_Episode_Series].Series_Episodes[WLB_Update_Episode_Episode].Episode_Done = WLB_Update_Episode_State;
     WLB_Save_ListData();
+}
+
+function WLB_EditItem_Load_Data(Type, Action, Value_1, Value_2){
+    if (Action == "Delete"){
+        if (Type == "Series"){
+            document.getElementById('WLB_EditItem_Delete_Series_Name').innerHTML = WLB_WatchList_Data[Value_1].Series_Name;
+            Element_Attribute_Set('WLB_EditItem_Delete_Series_Name', 'Series', Value_1);
+        } else if (Type == "Episode"){
+            document.getElementById('WLB_EditItem_Delete_Episode_Name').innerHTML = WLB_WatchList_Data[Value_1].Series_Name + " | Episode " + WLB_WatchList_Data[Value_1].Series_Episodes[Value_2].Episode_Number;
+            Element_Attribute_Set('WLB_EditItem_Delete_Episode_Name', 'Series', Value_1);
+            Element_Attribute_Set('WLB_EditItem_Delete_Episode_Name', 'Episode', Value_2);
+        }
+    } else if (Action == "Rename") {
+        if (Type == "Series"){
+            document.getElementById('WLB_EditItem_Rename_Series_Input').value = WLB_WatchList_Data[Value_1].Series_Name;
+            Element_Attribute_Set('WLB_EditItem_Rename_Series_Input', 'Series', Value_1);
+        }
+    }
+}
+
+function WLB_EditItem_Delete_Series(){
+    var Series = Element_Attribute_Get('WLB_EditItem_Delete_Series_Name', 'Series');
+    WLB_WatchList_Data.splice(Series, 1);
+    WLB_Save_ListData();
+    Subwindows_Close('WLB_EditItem_Delete_Series');
+    Toasts_CreateToast("Assets/Icons/iconNew_delete.png", "Series deleted", "Action successful");
+}
+
+function WLB_EditItem_Delete_Episode(){
+    var Series = Element_Attribute_Get('WLB_EditItem_Delete_Episode_Name', 'Series');
+    var Episode = Element_Attribute_Get('WLB_EditItem_Delete_Episode_Name', 'Episode');
+    WLB_WatchList_Data[Series].Series_Episodes.splice(Episode, 1);
+    WLB_Save_ListData();
+    Subwindows_Close('WLB_EditItem_Delete_Episode');
+    Toasts_CreateToast("Assets/Icons/iconNew_delete.png", "Episode deleted", "Action successful");
+}
+
+function WLB_EditItem_Rename_Series(){
+    var Series = Element_Attribute_Get('WLB_EditItem_Rename_Series_Input', 'Series');
+    WLB_WatchList_Data[Series].Series_Name = document.getElementById('WLB_EditItem_Rename_Series_Input').value;
+    WLB_Save_ListData();
+    Subwindows_Close('WLB_EditItem_Rename_Series');
+    Toasts_CreateToast("Assets/Icons/iconNew_edit.png", "Series renamed", "Action successful");
 }
