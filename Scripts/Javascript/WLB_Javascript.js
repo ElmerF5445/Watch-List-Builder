@@ -214,6 +214,7 @@ function  WLB_Add_Item_Series(){
     if (WLB_Add_Item_Series_Name != null || WLB_Add_Item_Series_Name != ''){
         let Data = {
             "Series_Name": WLB_Add_Item_Series_Name,
+            "Series_State": "Expanded",
             "Series_Episodes": []
         }
         WLB_WatchList_Data.push(Data);
@@ -253,7 +254,7 @@ function WLB_Add_Item_Episode(){
 
 function WLB_Update_Series_State(ID){
     var WLB_Update_Series_State = Element_Attribute_Get(ID, "State");
-    var WLB_Update_Series_Series = Element_Attribute_Get(ID, "State");
+    var WLB_Update_Series_Series = Element_Attribute_Get(ID, "Series");
     WLB_WatchList_Data[WLB_Update_Series_Series].Series_State = WLB_Update_Series_State;
 }
 
@@ -311,4 +312,56 @@ function WLB_EditItem_Rename_Series(){
     WLB_Save_ListData();
     Subwindows_Close('WLB_EditItem_Rename_Series');
     Toasts_CreateToast("Assets/Icons/iconNew_edit.png", "Series renamed", "Action successful");
+}
+
+function WLB_Export_WatchList(){
+    if (document.getElementById('WLB_Export_WatchList_Input').value != null || document.getElementById('WLB_Export_WatchList_Input').value != ""){
+        let Data = {
+            "WLB_WatchList_Data": WLB_WatchList_Data
+        }
+        var Data_JSON = JSON.stringify(Data, null, 2);
+        const Data_Blob = new Blob([Data_JSON], {type: 'application/json'});
+        saveAs(Data_Blob, document.getElementById('WLB_Export_WatchList_Input').value + ".cbe_wlb");
+        Subwindows_Close('WLB_Export_WatchList');
+        Toasts_CreateToast("Assets/Icons/iconNew_download.png", "Watchlist exported", "The file will be downloaded shortly.");
+    } else {
+        Subwindows_Open('WLB_Export_WatchList_Error_FileNameBlank');
+    }
+}
+
+function WLB_Import_WatchList(){
+    if (Element_Attribute_Get('WLB_Import_WatchList_Toggle', 'State') == 'Inactive'){
+        var File_Element = document.getElementById("WLB_Import_WatchList_Input");
+        var File_Element_File = File_Element.files[0];
+        const Reader = new FileReader();
+        Reader.onload = function(e){
+            const Contents = e.target.result;
+            const Data_JSON = JSON.parse(Contents);
+            WLB_WatchList_Raw_Data = Data_JSON;
+            WLB_WatchList_Data = WLB_WatchList_Raw_Data.WLB_WatchList_Data;
+            WLB_Save_ListData();
+            Toasts_CreateToast("Assets/Icons/iconNew_download.png", "Watchlist imported", `New data has replaced your existing list.`);
+        }
+
+        Reader.readAsText(File_Element_File);
+        Subwindows_Close("WLB_Import_WatchList");
+    } else if (Element_Attribute_Get('WLB_Import_WatchList_Toggle', 'State') == 'Active'){
+        var File_Element = document.getElementById("WLB_Import_WatchList_Input");
+        var File_Element_File = File_Element.files[0];
+        const Reader = new FileReader();
+        Reader.onload = function(e){
+            const Contents = e.target.result;
+            const Data_JSON = JSON.parse(Contents);
+            // WLB_WatchList_Raw_Data = Data_JSON;
+            for (a = 0; a < Data_JSON.WLB_WatchList_Data.length; a++){
+                WLB_WatchList_Data.push(Data_JSON.WLB_WatchList_Data[a]);
+            }
+            // WLB_WatchList_Data.concat(WLB_WatchList_Raw_Data.WLB_WatchList_Data);
+            WLB_Save_ListData();
+            Toasts_CreateToast("Assets/Icons/iconNew_download.png", "Watchlist imported", `New data has been added to your existing list.`);
+        }
+
+        Reader.readAsText(File_Element_File);
+        Subwindows_Close("WLB_Import_WatchList");
+    }
 }

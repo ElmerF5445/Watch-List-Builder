@@ -103,16 +103,32 @@
                     ],
                     "Actions": [
                         {
+                            "Title": "Add item",
+                            "Link": null,
+                            "Icon": "Assets/Icons/icon_add.png",
+                            "OnclickFunction": "Subwindows_Open('WLB_AddItem')",
+                            "CloseAfterClick": true
+                        },
+                        {
+                            "Title": "Clear data",
+                            "Link": null,
+                            "Icon": "Assets/Icons/iconNew_delete.png",
+                            "OnclickFunction": "Subwindows_Open('WLB_ClearData')",
+                            "CloseAfterClick": true
+                        },
+                        {
                             "Title": "Import watchlist",
                             "Link": null,
                             "Icon": "Assets/Icons/iconNew_download.png",
-                            "OnclickFunction": null
+                            "OnclickFunction": "Subwindows_Open('WLB_Import_WatchList')",
+                            "CloseAfterClick": true
                         },
                         {
                             "Title": "Export watchlist",
                             "Link": null,
                             "Icon": "Assets/Icons/icon_output.png",
-                            "OnclickFunction": null
+                            "OnclickFunction": "Subwindows_Open('WLB_Export_WatchList')",
+                            "CloseAfterClick": true
                         }
                     ]
                 }

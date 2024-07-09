@@ -567,6 +567,78 @@
 				</div>
 			</div>
 		</div>
+
+        <div class="Subwindow" id="WLB_Import_WatchList">
+            <div class="Subwindow_TitleBar">
+                <h2 class="Subwindow_TitleBar_Title">
+                    Import watchlist
+                </h2>
+                <img class='Subwindow_TitleBar_Close' src='Assets/Icons/icon_close.png' draggable='false' loading='lazy' onclick="Subwindows_Close(this.parentNode.parentNode.id)"/>
+            </div>
+            <div class="Subwindow_Content">
+                <p class="General_Paragraph">
+                    Click the button below to import a watchlist file. It only accepts .cbe_wlb files, which is the file extension for watchlists made in this program.
+                </p>
+                <input type="file" id="WLB_Import_WatchList_Input" accept=".cbe_wlb" class="Input_Text"/>
+                <div class="Toggle" id="WLB_Import_WatchList_Toggle" onclick="Buttons_Toggle(this.id)" State="Active" style="margin-top: 10px; margin-bottom: 10px;">
+                    <div class="Toggle_Indicator"></div>
+                    Add to the current watchlist (disable to replace your current watchlist)
+                </div>
+            </div>
+            <div class="Subwindow_Bottom">
+                <div class="Subwindow_Bottom_Button_SecondaryAction" onclick="Subwindows_Close('WLB_Import_WatchList')">
+                    Cancel
+                </div>
+                <div class="Subwindow_Bottom_Button_PrimaryAction" onclick="WLB_Import_WatchList()">
+                    Import this watchlist
+                </div>
+            </div>
+        </div>
+
+        <div class="Modal" id="WLB_Export_WatchList">
+			<div class="Modal_TitleBar">
+				<h2 class="Modal_TitleBar_Title">
+					Export watchlist
+				</h2>
+			</div>
+			<div class="Modal_Content">
+				<p class="General_Paragraph">
+                    Choose a file name here:
+				</p>
+                <div style="display: grid; grid-template-columns: 1fr 75px; grid-gap: 10px">
+                    <input type="text" class="Input_Text" id="WLB_Export_WatchList_Input" placeholder="File name here" value="WatchList"/>
+                    <p class="General_Paragraph">
+                        .cbe_wlb
+                    </p>
+                </div>
+			</div>
+			<div class="Modal_Content_Bottom">
+				<div class="Subwindow_Bottom_Button_SecondaryAction" onclick="Subwindows_Close('WLB_Export_WatchList')">
+					Cancel
+				</div>
+                <div class="Subwindow_Bottom_Button_PrimaryAction" onclick="WLB_Export_WatchList()">
+					Download watchlist
+				</div>
+			</div>
+		</div>
+
+        <div class="Modal" id="WLB_Export_WatchList_Error_FileNameBlank">
+			<div class="Modal_TitleBar">
+				<h2 class="Modal_TitleBar_Title">
+					Error - Export failed
+				</h2>
+			</div>
+			<div class="Modal_Content">
+				<p class="General_Paragraph">
+                    The file cannot be downloaded because the file name is not specified. Set a file name to proceed.
+				</p>
+			</div>
+			<div class="Modal_Content_Bottom">
+				<div class="Subwindow_Bottom_Button_PrimaryAction" onclick="Subwindows_Close('WLB_Export_WatchList_Error_FileNameBlank')">
+					Close
+				</div>
+			</div>
+		</div>
     </div>
     <div class="Toasts" Position="Right" id="Toasts">
         <!-- <div class="Toast">
@@ -765,18 +837,18 @@
 					Clear all data
 				</p>
 			</div>
-			<!-- <div class="Ribbon_Section_Item">
-				<img class="Ribbon_Section_Item_Icon" src="Assets/Icons/placeholder.png" />
+			<div class="Ribbon_Section_Item" onclick="Subwindows_Open('WLB_Import_WatchList')">
+				<img class="Ribbon_Section_Item_Icon" src="Assets/Icons/iconNew_download.png" />
 				<p class="Ribbon_Section_Item_Text">
-					Button 2
+                    Import watchlist
 				</p>
 			</div>
-            <div class="Ribbon_Section_Item">
-				<img class="Ribbon_Section_Item_Icon" src="Assets/Icons/placeholder.png" />
+            <div class="Ribbon_Section_Item" onclick="Subwindows_Open('WLB_Export_WatchList')">
+				<img class="Ribbon_Section_Item_Icon" src="Assets/Icons/icon_output.png" />
 				<p class="Ribbon_Section_Item_Text">
-					Button 2
+					Export watchlist
 				</p>
-			</div> -->
+			</div>
 		</div>
     </header>
     <div class="Tabs_Vertical_Container_Selector Sidebar" id="Sidebar" State="Collapsed" Style_Margin_Header="Enabled">

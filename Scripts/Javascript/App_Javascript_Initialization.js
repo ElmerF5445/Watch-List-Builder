@@ -249,6 +249,11 @@ function Startup_Page_ApplyConfigurations(Mode, Parameter) {
         if (App_Property.Header.Menu_Contents.Actions[a].Link != null){
             App_PageAction_Element_Anchor.setAttribute('href', App_Property.Header.Menu_Contents.Actions[a].Link);
         }
+        if (App_Property.Header.Menu_Contents.Actions[a].CloseAfterClick != null){
+          if (App_Property.Header.Menu_Contents.Actions[a].CloseAfterClick == true){
+            App_PageAction_Element_Anchor.setAttribute('onclick', "Header_Toggle_PageNavigation()");
+          }
+        }
         App_PageAction_Element_Anchor.innerHTML = App_PageAction_Element_HTML;
         document.getElementById("Header_PageActions_Menu_Links").appendChild(App_PageAction_Element_Anchor);
       }
