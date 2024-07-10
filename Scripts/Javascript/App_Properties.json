@@ -150,7 +150,7 @@
                     "Container": true,
                     "Tabs": true
                 },
-                "ClockScreen": true,
+                "ClockScreen": false,
                 "LoadingScreen": true,
                 "StatusBar": true,
                 "StatusBar_Elements": {

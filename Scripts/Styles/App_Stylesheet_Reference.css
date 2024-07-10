@@ -49,9 +49,9 @@
 	--Text-Font-Numbers: Alexandria, "Arial", "Helvetica";
 	--Text-Color: white;
 	
-	--Accent-Color: #8974fb;
-	--Accent-Color-Hover: #9886ff;
-	--Accent-Color-Focus: #664bff;
+	--Accent-Color: #f76852;
+	--Accent-Color-Hover: #fb8674;
+	--Accent-Color-Focus: #f8573e;
 
 	--BG-Color-Scrollbar: transparent;
 	--BG-Color-Scrollbar-Thumb: var(--Accent-Color);
@@ -79,18 +79,18 @@
 	/* Primary buttons */
 	--BG-Color-Button-Primary: var(--Accent-Color);
 	--BG-Color-Button-Primary-Text: #222222;
-	--BG-Color-Button-Primary-Border-Primary: #9683fc;
-	--BG-Color-Button-Primary-Border-Secondary: #664bff;
+	--BG-Color-Button-Primary-Border-Primary: #fb8674;
+	--BG-Color-Button-Primary-Border-Secondary: #fa6852;
 
 	--BG-Color-Button-Primary-Hover: var(--Accent-Color-Hover);
 	--BG-Color-Button-Primary-Text-Hover: #222222;
-	--BG-Color-Button-Primary-Border-Primary-Hover: #775fff;
-	--BG-Color-Button-Primary-Border-Secondary-Hover: #664bff;
+	--BG-Color-Button-Primary-Border-Primary-Hover: #fa6852;
+	--BG-Color-Button-Primary-Border-Secondary-Hover: #ef523a;
 
 	--BG-Color-Button-Primary-Focus: var(--Accent-Color-Focus);
 	--BG-Color-Button-Primary-Text-Focus: #222222;
-	--BG-Color-Button-Primary-Border-Primary-Focus: #6a50ff;
-	--BG-Color-Button-Primary-Border-Secondary-Focus: #5739ff;
+	--BG-Color-Button-Primary-Border-Primary-Focus: #dd503a;
+	--BG-Color-Button-Primary-Border-Secondary-Focus: #c6412d;
 
 	/* Secondary */
 	--BG-Color-Button-Secondary: #1b1a1a;

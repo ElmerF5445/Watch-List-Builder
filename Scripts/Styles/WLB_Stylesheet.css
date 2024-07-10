@@ -6,6 +6,17 @@
 .WLB_Editor_Controls_Episode{
     grid-template-columns: 35px 1fr 40px;
     grid-gap: 10px;
+    padding: 0;
+    padding-left: 10px;
+    margin-bottom: 5px;
+}
+
+#WatchList_Editor > span > .Accordion > .Accordion_Content > span:nth-child(odd) > .WLB_Editor_Controls_Episode{
+    background-color: rgba(255, 255, 255, 0.044);
+}
+
+#WatchList_Editor > span > .Accordion > .Accordion_Content > span:nth-child(odd) > .WLB_Editor_Controls_Episode:hover{
+    background-color: var(--BG-Color-Hover);
 }
 
 .WLB_Editor_Controls_Episode:active{
